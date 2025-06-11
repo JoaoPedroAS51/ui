@@ -231,8 +231,12 @@ const tableRef = ref<HTMLTableElement>()
 const tableApi = useVueTable({
   ...reactiveOmit(props, 'as', 'data', 'columns', 'caption', 'sticky', 'loading', 'loadingColor', 'loadingAnimation', 'class', 'ui'),
   data,
-  columns: columns.value,
-  meta: meta.value,
+  get columns() {
+    return columns.value
+  },
+  get meta() {
+    return meta.value
+  },
   getCoreRowModel: getCoreRowModel(),
   ...(props.globalFilterOptions || {}),
   onGlobalFilterChange: updaterOrValue => valueUpdater(updaterOrValue, globalFilterState),
